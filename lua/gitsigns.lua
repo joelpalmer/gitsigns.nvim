@@ -7,8 +7,8 @@ local scheduler = a.scheduler
 
 local Status = require("gitsigns.status")
 local git = require('gitsigns.git')
-local gs_hl = require('gitsigns.highlight')
 local manager = require('gitsigns.manager')
+local setup_highlight = require('gitsigns.highlight').setup_highlight
 local signs = require('gitsigns.signs')
 local util = require('gitsigns.util')
 
@@ -256,14 +256,10 @@ local function setup_signs_and_highlights(redefine)
    for t, sign_name in pairs(signs.sign_map) do
       local cs = config.signs[t]
 
-      gs_hl.setup_highlight(cs.hl)
+      setup_highlight(cs.hl)
 
-      local HlTy = {}
-      for _, hlty in ipairs({ 'numhl', 'linehl' }) do
-         if config[hlty] then
-            gs_hl.setup_other_highlight(cs[hlty], cs.hl)
-         end
-      end
+      if config.numhl then setup_highlight(cs.numhl) end
+      if config.linehl then setup_highlight(cs.linehl) end
 
       signs.define(sign_name, {
          texthl = cs.hl,
@@ -274,7 +270,7 @@ local function setup_signs_and_highlights(redefine)
 
    end
    if config.current_line_blame then
-      gs_hl.setup_highlight('GitSignsCurrentLineBlame')
+      setup_highlight('GitSignsCurrentLineBlame')
    end
 end
 

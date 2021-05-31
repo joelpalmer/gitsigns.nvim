@@ -435,27 +435,23 @@ describe('gitsigns', function()
       sleep(10)
 
       match_dag(debug_messages(), {
-        p'Deriving GitSignsChangeNr from GitSignsChange',
-        p'Deriving GitSignsChangeLn from GitSignsChange',
-        p'Deriving GitSignsDelete from DiffDelete',
-        p'Deriving GitSignsDeleteNr from GitSignsDelete',
-        p'Deriving GitSignsDeleteLn from GitSignsDelete',
         p'Deriving GitSignsAdd from DiffAdd',
+        p'Deriving GitSignsAddLn from DiffAdd',
         p'Deriving GitSignsAddNr from GitSignsAdd',
-        p'Deriving GitSignsAddLn from GitSignsAdd',
-        p'Deriving GitSignsDeleteNr from GitSignsDelete',
-        p'Deriving GitSignsDeleteLn from GitSignsDelete',
+        p'Deriving GitSignsChangeLn from DiffChange',
         p'Deriving GitSignsChangeNr from GitSignsChange',
-        p'Deriving GitSignsChangeLn from GitSignsChange'
+        p'Deriving GitSignsDelete from DiffDelete',
+        p'Deriving GitSignsDeleteLn from DiffDelete',
+        p'Deriving GitSignsDeleteNr from GitSignsDelete',
       })
 
-      eq('GitSignsChange xxx gui=reverse guibg=#ffbbff',
+      eq('GitSignsChange xxx links to DiffChange',
         exec_capture('hi GitSignsChange'))
 
-      eq('GitSignsDelete xxx gui=reverse guifg=#0000ff guibg=#e0ffff',
+      eq('GitSignsDelete xxx links to DiffDelete',
         exec_capture('hi GitSignsDelete'))
 
-      eq('GitSignsAdd    xxx gui=reverse guibg=#add8e6',
+      eq('GitSignsAdd    xxx links to DiffAdd',
         exec_capture('hi GitSignsAdd'))
     end)
 
@@ -472,30 +468,30 @@ describe('gitsigns', function()
       exec_lua('gs.setup(...)', config)
       sleep(10)
 
-      eq('GitSignsChange xxx gui=reverse guibg=#ffbbff',
+      eq('GitSignsChange xxx links to DiffChange',
         exec_capture('hi GitSignsChange'))
 
-      eq('GitSignsDelete xxx gui=reverse guifg=#0000ff guibg=#e0ffff',
+      eq('GitSignsDelete xxx links to DiffDelete',
         exec_capture('hi GitSignsDelete'))
 
-      eq('GitSignsAdd    xxx gui=reverse guibg=#add8e6',
+      eq('GitSignsAdd    xxx links to DiffAdd',
         exec_capture('hi GitSignsAdd'))
 
-      eq('GitSignsAddLn  xxx gui=reverse guibg=#add8e6',
+      eq('GitSignsAddLn  xxx links to DiffAdd',
         exec_capture('hi GitSignsAddLn'))
 
       command('colorscheme blue')
 
-      eq('GitSignsChange xxx gui=reverse guifg=#000000 guibg=#006400',
+      eq('GitSignsChange xxx links to DiffChange',
         exec_capture('hi GitSignsChange'))
 
-      eq('GitSignsDelete xxx gui=reverse guifg=#000000 guibg=#ff7f50',
+      eq('GitSignsDelete xxx links to DiffDelete',
         exec_capture('hi GitSignsDelete'))
 
-      eq('GitSignsAdd    xxx gui=reverse guifg=#000000 guibg=#6a5acd',
+      eq('GitSignsAdd    xxx links to DiffAdd',
         exec_capture('hi GitSignsAdd'))
 
-      eq('GitSignsAddLn  xxx gui=reverse guifg=#000000 guibg=#6a5acd',
+      eq('GitSignsAddLn  xxx links to DiffAdd',
         exec_capture('hi GitSignsAddLn'))
     end)
   end)
